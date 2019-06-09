@@ -1,12 +1,21 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import uniqueValidator from 'mongoose-unique-validator';
 
 // uniqness eamil
 const schema = new mongoose.Schema(
   {
-    email: { type: String, required: true, lowercase: true, index: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      index: true,
+    },
+    username: { type: String, required: true, unique: true, lowercase: true },
     passwordHash: { type: String, required: true },
+    confirmed: { type: Boolean, default: false },
   },
   { timestamps: true },
 );
@@ -15,10 +24,14 @@ schema.methods.isValidPassword = function isValidPassword(password) {
   return bcrypt.compareSync(password, this.passwordHash);
 };
 
+schema.methods.setPassword = function setPassword(password) {
+  this.passwordHash = bcrypt.hashSync(password, 10);
+};
+
 schema.methods.generateJWT = function generateJWT() {
   return jwt.sign(
     {
-      emial: this.email,
+      email: this.email,
     },
     process.env.JWT_SECRET,
   );
@@ -27,8 +40,14 @@ schema.methods.generateJWT = function generateJWT() {
 schema.methods.toAuthJSON = function toAuthJSON() {
   return {
     email: this.email,
+    username: this.username,
+    confirmed: this.confirmed,
     token: this.generateJWT(),
   };
 };
+
+schema.plugin(uniqueValidator, {
+  message: 'This value has already used',
+});
 
 export default mongoose.model('User', schema);
