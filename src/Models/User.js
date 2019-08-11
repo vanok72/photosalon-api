@@ -40,7 +40,7 @@ schema.methods.generateConfirmationUrl = function generateConfirmationUrl() {
 schema.methods.generateResetPasswordLink = function generateResetPasswordLink() {
   return `${
     process.env.HOST
-  }/reset_passwrod/${this.generateResetPasswordToken()}`;
+  }/reset_password/${this.generateResetPasswordToken()}`;
 };
 
 schema.methods.generateResetPasswordToken = function generateResetPasswordToken() {
@@ -49,7 +49,7 @@ schema.methods.generateResetPasswordToken = function generateResetPasswordToken(
       _id: this._id,
     },
     process.env.JWT_SECRET,
-    { expiresIn: '1s' },
+    { expiresIn: '1h' },
   );
 };
 
@@ -57,6 +57,7 @@ schema.methods.generateJWT = function generateJWT() {
   return jwt.sign(
     {
       email: this.email,
+      username: this.username,
       confirmed: this.confirmed,
     },
     process.env.JWT_SECRET,
@@ -76,4 +77,4 @@ schema.plugin(uniqueValidator, {
   message: 'This value has already used',
 });
 
-export default mongoose.model('User', schema);
+export default mongoose.models.User || mongoose.model('User', schema);

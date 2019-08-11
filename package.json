@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "babel-node seed/seed.js",
     "start": "nodemon --exec babel-node -- src/index.js"
   },
   "repository": {
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/vanok72/photosalon-api#readme",
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "bcrypt": "^3.0.6",
     "bluebird": "^3.5.5",
@@ -29,9 +31,13 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
     "mongoose": "^5.5.14",
+    "mongoose-seed": "^0.6.0",
     "mongoose-unique-validator": "^2.0.3",
     "nodemailer": "^6.2.1",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
