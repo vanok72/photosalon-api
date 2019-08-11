@@ -1,5 +1,5 @@
-import express from 'express';
-import User from '../models/User';
+import express from './node_modules/express';
+import user from '../models/user';
 import parseErrors from '../utils/parseErrors';
 import { sendConfirmationEmail } from '../utils/mailer';
 import authenticate from '../middlwares/authenticate';
@@ -8,10 +8,10 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
   const { email, username, password } = req.body.user;
-  const user = new User({ email, username });
-  user.setPassword(password);
-  user.setConfirmationToken();
-  user
+  const currentUser = new user({ email, username });
+  currentUser.setPassword(password);
+  currentUser.setConfirmationToken();
+  currentUser
     .save()
     .then(userRecord => {
       sendConfirmationEmail(userRecord);

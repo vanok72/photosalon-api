@@ -5,4 +5,4 @@ const schema = new mongoose.Schema({
   description: String,
 });
 
-export default mongoose.models.CharacterClass || mongoose.model('CharacterClass', schema);
+export default mongoose.models.characterClass || mongoose.model('characterClass', schema);

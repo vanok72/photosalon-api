@@ -9,4 +9,4 @@ const schema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, required: true },
 });
 
-export default mongoose.models.Book || mongoose.model('Book', schema);
+export default mongoose.models.book || mongoose.model('book', schema);

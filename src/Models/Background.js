@@ -5,4 +5,4 @@ const schema = new mongoose.Schema({
   description: String,
 });
 
-export default mongoose.models.Background || mongoose.model('Background', schema);
+export default mongoose.models.background || mongoose.model('background', schema);

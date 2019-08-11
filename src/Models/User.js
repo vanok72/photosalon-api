@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import uniqueValidator from 'mongoose-unique-validator';
+import bcrypt from './node_modules/bcrypt';
+import jwt from './node_modules/jsonwebtoken';
+import uniqueValidator from './node_modules/mongoose-unique-validator';
 
 // uniqness eamil
 const schema = new mongoose.Schema(
@@ -77,4 +77,4 @@ schema.plugin(uniqueValidator, {
   message: 'This value has already used',
 });
 
-export default mongoose.models.User || mongoose.model('User', schema);
+export default mongoose.models.user || mongoose.model('user', schema);

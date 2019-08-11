@@ -1,36 +1,40 @@
-import express from 'express';
-import User from '../models/User';
+import express from './node_modules/express';
+import user from '../models/user';
 import { sendResetPasswordEmail } from '../utils/mailer';
-import jwt from 'jsonwebtoken';
+import jwt from './node_modules/jsonwebtoken';
 
 const router = express.Router();
 
 router.post('/', (req, res) => {
   const { credentials } = req.body;
-  User.findOne({
-    $or: [{ email: credentials.login }, { username: credentials.login }],
-  }).then(user => {
-    if (user && user.isValidPassword(credentials.password)) {
-      res.json({ user: user.toAuthJSON() });
-    } else {
-      res.status(400).json({ errors: { global: 'Invalid credentials' } });
-    }
-  });
+  user
+    .findOne({
+      $or: [{ email: credentials.login }, { username: credentials.login }],
+    })
+    .then(user => {
+      if (user && user.isValidPassword(credentials.password)) {
+        res.json({ user: user.toAuthJSON() });
+      } else {
+        res.status(400).json({ errors: { global: 'Invalid credentials' } });
+      }
+    });
 });
 
 router.post('/confirmation', (req, res) => {
   const token = req.body.token;
-  User.findOneAndUpdate(
-    { confirmationToken: token },
-    { confirmationToken: '', confirmed: true },
-    { new: true },
-  ).then(user =>
-    user ? res.json({ user: user.toAuthJSON() }) : res.status(400).json({}),
-  );
+  user
+    .findOneAndUpdate(
+      { confirmationToken: token },
+      { confirmationToken: '', confirmed: true },
+      { new: true },
+    )
+    .then(user =>
+      user ? res.json({ user: user.toAuthJSON() }) : res.status(400).json({}),
+    );
 });
 
 router.post('/reset_password', (req, res) => {
-  User.findOne({ email: req.body.email }).then(user => {
+  user.findOne({ email: req.body.email }).then(user => {
     if (user) {
       sendResetPasswordEmail(user);
       res.json({});
@@ -58,7 +62,7 @@ router.post('/resetpassword', (req, res) => {
     if (err) {
       res.status(401).json({ errors: { global: 'Invalid token' } });
     } else {
-      User.findOne({ _id: decoded._id }).then(user => {
+      user.findOne({ _id: decoded._id }).then(user => {
         if (user) {
           user.setPassword(password);
           user.save().then(() => res.json({}));
