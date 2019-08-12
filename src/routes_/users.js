@@ -1,5 +1,5 @@
 import express from 'express';
-import user from '../models_/user';
+import user from '../models/user';
 import parseErrors from '../utils_/parseErrors';
 import { sendConfirmationEmail } from '../utils_/mailer';
 import authenticate from '../middlwares/authenticate';
