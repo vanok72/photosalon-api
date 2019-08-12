@@ -1,6 +1,6 @@
-import express from './node_modules/express';
-import request from './node_modules/request-promise';
-import { parseString } from './node_modules/xml2js';
+import express from 'express';
+import request from 'request-promise';
+import { parseString } from 'xml2js';
 import authenticate from '../middlwares/authenticate';
 import book from '../models/book';
 import parseErrors from '../utils/parseErrors';
@@ -13,7 +13,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  book.create({ ...req.body.book, userId: req.currentUser._id })
+  book
+    .create({ ...req.body.book, userId: req.currentUser._id })
     .then(book => res.json({ book }))
     .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
 });

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import bcrypt from './node_modules/bcrypt';
-import jwt from './node_modules/jsonwebtoken';
-import uniqueValidator from './node_modules/mongoose-unique-validator';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import uniqueValidator from 'mongoose-unique-validator';
 
 // uniqness eamil
 const schema = new mongoose.Schema(

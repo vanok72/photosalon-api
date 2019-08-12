@@ -1,7 +1,7 @@
-import express from './node_modules/express';
+import express from 'express';
 import user from '../models/user';
 import { sendResetPasswordEmail } from '../utils/mailer';
-import jwt from './node_modules/jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 

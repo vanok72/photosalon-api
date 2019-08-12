@@ -1,4 +1,4 @@
-import express from './node_modules/express';
+import express from 'express';
 import user from '../models/user';
 import parseErrors from '../utils/parseErrors';
 import { sendConfirmationEmail } from '../utils/mailer';
