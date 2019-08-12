@@ -1,7 +1,7 @@
 import express from 'express';
 import user from '../models/user';
-import parseErrors from '../utils_/parseErrors';
-import { sendConfirmationEmail } from '../utils_/mailer';
+import parseErrors from '../utils/parseErrors';
+import { sendConfirmationEmail } from '../utils/mailer';
 import authenticate from '../middlwares/authenticate';
 
 const router = express.Router();

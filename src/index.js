@@ -5,10 +5,10 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import Promise from 'bluebird';
 
-import auth from './routes_/auth';
+import auth from './routes/auth';
 
-import users from './routes_/users';
-import books from './routes_/books';
+import users from './routes/users';
+import books from './routes/books';
 
 dotenv.config();
 const app = express();

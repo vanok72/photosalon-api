@@ -3,7 +3,7 @@ import request from 'request-promise';
 import { parseString } from 'xml2js';
 import authenticate from '../middlwares/authenticate';
 import book from '../models/book';
-import parseErrors from '../utils_/parseErrors';
+import parseErrors from '../utils/parseErrors';
 
 const router = express.Router();
 router.use(authenticate);
