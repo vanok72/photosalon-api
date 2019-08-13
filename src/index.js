@@ -10,6 +10,8 @@ import auth from './routes/auth';
 import users from './routes/users';
 import books from './routes/books';
 
+import usr from './models/user';
+
 dotenv.config();
 const app = express();
 app.use(bodyParser.json());
@@ -22,7 +24,22 @@ app.use('/api/users', users);
 app.use('/api/books', books);
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  usr
+    .findOne({
+      $or: [
+        { email: 'nevermoreagain72@gmail.com' },
+        { username: 'nevermoreagain72@gmail.com' },
+      ],
+    })
+    .then(user => {
+      if (user) {
+        console.log(`User found`), res.json({ user: user });
+      } else {
+        console.log(`User not found`),
+          res.status(400).json({ errors: { global: 'Invalid credentials' } });
+      }
+    });
+  //res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(process.env.PORT, () =>
