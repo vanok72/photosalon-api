@@ -35,11 +35,10 @@ app.get('/*', (req, res) => {
       if (user) {
         console.log(`User found`), res.json({ user: user });
       } else {
-        console.log(`User not found`),
-          res.status(400).json({ errors: { global: 'Invalid credentials' } });
+        console.log(`User not found`);
       }
     });
-  //res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(process.env.PORT, () =>
