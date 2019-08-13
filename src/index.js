@@ -25,4 +25,6 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(process.env.PORT, () => console.log('Running on localhost:3000'));
+app.listen(process.env.PORT, () =>
+  console.log(`Our app is running on port ${process.env.PORT}`),
+);
